@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
     	myRobot = new RobotDrive(0,1);
     	compressor1.stop();
     	stick = new Joystick(1);
-    	stick1 = new Joystick(2);
+    	rightStick = new Joystick(2);
     }
     
     /**

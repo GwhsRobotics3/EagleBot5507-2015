@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
 	
 	RobotDrive myRobot;
 	Joystick stick;
-	Joystick stick1;
+	Joystick rightStick;
 	CANTalon motor1 = new CANTalon(1);
 	CANTalon motor2 = new CANTalon(0);
 	CANTalon motor3 = new CANTalon(2);

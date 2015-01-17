@@ -18,13 +18,13 @@ import edu.wpi.first.wpilibj.Compressor;
  */
 public class Robot extends IterativeRobot {
 	//Buttons
-	int grabber = 1;
-	int lifterUp = 5;
-	int lifterDown = 6;
-	int turnRight = 3;
-	int turnLeft = 4;
-	int reset = 7;
-	int lights = 8;
+	final int GRABBER = 1;
+	final int LIFTERUP = 5;
+	final int LIFTERDOWN = 6;
+	final int TURNRIGHT = 3;
+	final int TURNLEFT = 4;
+	final int RESET = 7;
+	final int LIGHTS = 8;
 	
 	RobotDrive myRobot;
 	Joystick stick;

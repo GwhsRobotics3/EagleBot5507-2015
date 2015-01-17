@@ -26,11 +26,14 @@ public class Robot extends IterativeRobot {
 	final int RESET = 7;
 	final int LIGHTS = 8;
 	
+	final int MOTOR_PORT_1 = 1;
+	final int MOTOR_PORT_0 = 0;
+	
 	RobotDrive myRobot;
-	Joystick stick;
+	Joystick leftstick;
 	Joystick rightStick;
-	CANTalon motor1 = new CANTalon(1);
-	CANTalon motor2 = new CANTalon(0);
+	CANTalon motor1 = new CANTalon(MOTOR_PORT_1);
+	CANTalon motor2 = new CANTalon(MOTOR_PORT_0);
 	CANTalon motor3 = new CANTalon(2);
 	int autoLoopCounter;
 	Compressor compressor1 = new Compressor();
@@ -40,9 +43,9 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	myRobot = new RobotDrive(0,1);
+    	myRobot = new RobotDrive(MOTOR_PORT_0,MOTOR_PORT_1);
     	compressor1.stop();
-    	stick = new Joystick(1);
+    	leftstick = new Joystick(MOTOR_PORT_0);
     	rightStick = new Joystick(2);
     }
     
@@ -76,20 +79,19 @@ public class Robot extends IterativeRobot {
      */
 	public void teleopPeriodic() 
 	{
-        myRobot.arcadeDrive(stick);
-   		if(stick.getRawButton(1))
+        myRobot.arcadeDrive(leftstick);
+   		if(leftstick.getRawButton(1))
         {
    			for(int i = 0; i < 50; i++)
    			{
    				myRobot.drive(-.1, 0);
    			}
         }
-
-   		if(stick.getRawButton(2))
+   		if(leftstick.getRawButton(2))
    		{
    			for(int i = 0; i < 50; i++)
    			{
-   				myRobot.drive(0, 0.5);
+   				myRobot.drive(outputMagnitude, curve);;
    			}
    		}
    		

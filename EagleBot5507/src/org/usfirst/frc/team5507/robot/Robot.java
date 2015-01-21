@@ -36,9 +36,9 @@ public class Robot extends IterativeRobot {
 	RobotDrive myRobot;
 	Joystick leftStick;
 	Joystick rightStick;
-	CANTalon motor1 = new CANTalon(MOTOR_LEFT);
-	CANTalon motor2 = new CANTalon(MOTOR_RIGHT);
-	CANTalon motor3 = new CANTalon(MOTOR_LIFTER);
+	CANTalon motorLeft = new CANTalon(MOTOR_LEFT);
+	CANTalon motorRight = new CANTalon(MOTOR_RIGHT);
+	CANTalon motorLifter = new CANTalon(MOTOR_LIFTER);
 	Compressor compressor = new Compressor();
 	
     /**
@@ -83,17 +83,17 @@ public class Robot extends IterativeRobot {
         myRobot.arcadeDrive(leftStick);
    		if(leftStick.getRawButton(LIFTERUP))
         {
-   			motor3.set(1);
+   			motorLifter.set(1);
         }
    		
    		if(leftStick.getRawButton(LIFTERDOWN))
    		{
-   			motor3.set(-1);
+   			motorLifter.set(-1);
    		}
    		
    		if(leftStick.getRawButton(TURNLEFT))
    		{
-   			motor1.set(1);
+   			motorLeft.set(1);
    		}
    		/*
    		if(leftstick.getRawButton(2))

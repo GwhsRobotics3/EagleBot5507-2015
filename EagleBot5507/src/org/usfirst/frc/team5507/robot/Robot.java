@@ -94,7 +94,16 @@ public class Robot extends IterativeRobot {
    		if(leftStick.getRawButton(TURNLEFT))
    		{
    			motorRight.set(1);
+   			motorLeft.set(0);
+   			// need to finish
    		}
+   		if(leftStick.getRawButton(TURNRIGHT))
+   		{
+   			motorLeft.set(1);
+   			motorRight.set(0);
+   			//need to finish
+   		}
+   		
    		/*
    		if(leftstick.getRawButton(2))
    		

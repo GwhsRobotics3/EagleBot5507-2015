@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	final int TURNRIGHT = 3;
 	final int TURNLEFT = 4;
 	final int RESET = 7;
-	final int LIGHTS = 8;
+	final int LIGHT = 8;
 	
 	final int MOTOR_PORT_1 = 1;
 	final int MOTOR_PORT_0 = 0;
@@ -43,9 +43,9 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	myRobot = new RobotDrive(MOTOR_PORT_0,MOTOR_PORT_1);
+    	myRobot = new RobotDrive(MOTOR_PORT_0, MOTOR_PORT_1);
     	compressor1.stop();
-    	leftstick = new Joystick(MOTOR_PORT_0);
+    	leftstick = new Joystick(MOTOR_PORT_1);
     	rightStick = new Joystick(2);
     }
     
@@ -53,14 +53,12 @@ public class Robot extends IterativeRobot {
      * This function is run once each time the robot enters autonomous mode
      */
     public void autonomousInit() {
-    	autoLoopCounter = 0;
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	myRobot.drive(.05,0);
     }
     
     /**
@@ -87,13 +85,16 @@ public class Robot extends IterativeRobot {
    				myRobot.drive(-.1, 0);
    			}
         }
+   		/*
    		if(leftstick.getRawButton(2))
+   		
    		{
    			for(int i = 0; i < 50; i++)
    			{
    				myRobot.drive(outputMagnitude, curve);;
    			}
    		}
+   		*/
    		
    		}
    		

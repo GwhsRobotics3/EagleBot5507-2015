@@ -93,7 +93,7 @@ public class Robot extends IterativeRobot {
    		
    		if(leftStick.getRawButton(TURNLEFT))
    		{
-   			motorLeft.set(1);
+   			motorRight.set(1);
    		}
    		/*
    		if(leftstick.getRawButton(2))
@@ -114,9 +114,5 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
     	LiveWindow.run();
-    }
-    
-   
-   
+    }  
 }
-l

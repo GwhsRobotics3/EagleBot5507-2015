@@ -95,12 +95,16 @@ public class Robot extends IterativeRobot {
    		{
    			motorRight.set(1);
    			motorLeft.set(0);
+   			Timer.delay(.5); //need to calculate turn rate or get gyro
+   			motorRight.set(0);
    			// need to finish
    		}
    		if(leftStick.getRawButton(TURNRIGHT))
    		{
    			motorLeft.set(1);
    			motorRight.set(0);
+   			Timer.delay(.5); //need to calculate turn rate or get gyro
+   			motorLeft.set(0);
    			//need to finish
    		}
    		

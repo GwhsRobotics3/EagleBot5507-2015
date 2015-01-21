@@ -24,29 +24,32 @@ public class Robot extends IterativeRobot {
 	final int TURNRIGHT = 3;
 	final int TURNLEFT = 4;
 	final int RESET = 7;
-	final int LIGHT = 8;
+	final int LIGHTS = 8;
 	
-	final int MOTOR_PORT_1 = 1;
-	final int MOTOR_PORT_0 = 0;
+	final int MOTOR_LEFT = 0;
+	final int MOTOR_RIGHT = 1;
+	final int MOTOR_LIFTER = 2;
+	
+	final int LEFT_JOYSTICK = 1;
+	final int RIGHT_JOYSTICK = 2;
 	
 	RobotDrive myRobot;
-	Joystick leftstick;
+	Joystick leftStick;
 	Joystick rightStick;
-	CANTalon motor1 = new CANTalon(MOTOR_PORT_1);
-	CANTalon motor2 = new CANTalon(MOTOR_PORT_0);
-	CANTalon motor3 = new CANTalon(2);
-	int autoLoopCounter;
-	Compressor compressor1 = new Compressor();
+	CANTalon motor1 = new CANTalon(MOTOR_LEFT);
+	CANTalon motor2 = new CANTalon(MOTOR_RIGHT);
+	CANTalon motor3 = new CANTalon(MOTOR_LIFTER);
+	Compressor compressor = new Compressor();
 	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	myRobot = new RobotDrive(MOTOR_PORT_0, MOTOR_PORT_1);
-    	compressor1.stop();
-    	leftstick = new Joystick(MOTOR_PORT_1);
-    	rightStick = new Joystick(2);
+    	myRobot = new RobotDrive(MOTOR_LEFT,MOTOR_RIGHT);
+    	compressor.stop();
+    	leftStick = new Joystick(LEFT_JOYSTICK);
+    	rightStick = new Joystick(RIGHT_JOYSTICK);
     }
     
     /**
@@ -77,14 +80,21 @@ public class Robot extends IterativeRobot {
      */
 	public void teleopPeriodic() 
 	{
-        myRobot.arcadeDrive(leftstick);
-   		if(leftstick.getRawButton(1))
+        myRobot.arcadeDrive(leftStick);
+   		if(leftStick.getRawButton(LIFTERUP))
         {
-   			for(int i = 0; i < 50; i++)
-   			{
-   				myRobot.drive(-.1, 0);
-   			}
+   			motor3.set(1);
         }
+   		
+   		if(leftStick.getRawButton(LIFTERDOWN))
+   		{
+   			motor3.set(-1);
+   		}
+   		
+   		if(leftStick.getRawButton(TURNLEFT))
+   		{
+   			motor1.set(1);
+   		}
    		/*
    		if(leftstick.getRawButton(2))
    		
@@ -109,3 +119,4 @@ public class Robot extends IterativeRobot {
    
    
 }
+l

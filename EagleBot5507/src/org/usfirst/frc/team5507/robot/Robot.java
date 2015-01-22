@@ -30,8 +30,11 @@ public class Robot extends IterativeRobot {
 	final int MOTOR_RIGHT = 1;
 	final int MOTOR_LIFTER = 2;
 	
-	final int LEFT_JOYSTICK = 1;
-	final int RIGHT_JOYSTICK = 2;
+	final int LEFT_JOYSTICK = 0;
+	final int RIGHT_JOYSTICK = 1;
+	
+	final long ELAPSE_LIFT = 0; //need to change 
+	final long ELAPSE_TURN = 0; //need to change
 	
 	RobotDrive myRobot;
 	Joystick leftStick;
@@ -40,6 +43,7 @@ public class Robot extends IterativeRobot {
 	CANTalon motorRight = new CANTalon(MOTOR_RIGHT);
 	CANTalon motorLifter = new CANTalon(MOTOR_LIFTER);
 	Compressor compressor = new Compressor();
+	StopWatch timer = new StopWatch();
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -80,32 +84,52 @@ public class Robot extends IterativeRobot {
      */
 	public void teleopPeriodic() 
 	{
-        myRobot.arcadeDrive(leftStick);
-   		if(leftStick.getRawButton(LIFTERUP))
+		myRobot.arcadeDrive(leftStick);
+     	if(leftStick.getRawButton(LIFTERUP))
         {
+     		timer.start();
+     		while(timer.getElapsedTime()<ELAPSE_LIFT)
+     		{
+     			myRobot.arcadeDrive(leftStick);
    			motorLifter.set(1);
+     		}
+     		timer.stop();
+     		timer.reset();
+   			
         }
    		
    		if(leftStick.getRawButton(LIFTERDOWN))
    		{
+   			timer.start();
+     		while(timer.getElapsedTime()<ELAPSE_LIFT)
+     		{
+     			myRobot.arcadeDrive(leftStick);
    			motorLifter.set(-1);
+     		}
+     		timer.stop();
+     		timer.reset();
    		}
    		
    		if(leftStick.getRawButton(TURNLEFT))
    		{
-   			motorRight.set(1);
-   			motorLeft.set(0);
-   			Timer.delay(.5); //need to calculate turn rate or get gyro
-   			motorRight.set(0);
-   			// need to finish
+   			timer.start();
+   			while(timer.getElapsedTime()<ELAPSE_TURN)
+   			{
+   				myRobot.drive(0,-1);
+   			}
+   			timer.stop();
+   			timer.reset();
    		}
+   		
    		if(leftStick.getRawButton(TURNRIGHT))
    		{
-   			motorLeft.set(1);
-   			motorRight.set(0);
-   			Timer.delay(.5); //need to calculate turn rate or get gyro
-   			motorLeft.set(0);
-   			//need to finish
+   			timer.start();
+   			while(timer.getElapsedTime()<ELAPSE_TURN)
+   			{
+   				myRobot.drive(0,1);
+   			}
+   			timer.stop();
+   			timer.reset();
    		}
    		
    		/*

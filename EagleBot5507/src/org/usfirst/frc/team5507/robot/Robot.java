@@ -103,9 +103,25 @@ public class Robot extends IterativeRobot
 	public void teleopPeriodic() 
 	{
 		myRobot.arcadeDrive(leftStick);
-				
 		
-		//lifter up 1 level
+		// rotate robot to the right
+		if(leftStick.getTwist() > .05)
+		{
+			myRobot.drive(0, .35);
+			
+		}
+		
+		// rotate robot to the left
+		else if(leftStick.getTwist() < -.05)
+		{
+			myRobot.drive(0, -.35);
+			
+		}
+		else
+		{}
+		
+		// -0.05 < twist < 0.05 
+		// robot should stop twisting in the range above
      	if(leftStick.getRawButton(LIFTERLEVELUP))
         {
      		timer.start();

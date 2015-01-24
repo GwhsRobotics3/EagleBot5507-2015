@@ -19,7 +19,8 @@ import edu.wpi.first.wpilibj.Compressor;
 public class Robot extends IterativeRobot
 {
 	//Buttons
-	final int GRABBER =3;
+
+	final int GRABBER = 1;
 	final int LIFTERUP = 5;
 	final int LIFTERDOWN = 6;
 	final int TURNRIGHT = 3;

@@ -53,6 +53,11 @@ public class Robot extends IterativeRobot
 	
 	Timer timer = new Timer();
 	
+	boolean lifterUpState = false;
+	boolean lifterDownState = false;
+	
+    LifterState lifterState = LifterState.STOPPED;
+	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -88,11 +93,6 @@ public class Robot extends IterativeRobot
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-    	
-    	boolean lifterUpState = false;
-    	boolean lifterDownState = false;
-    	
-        LifterState lifterState = STOPPED;
     }
     
     /**
@@ -132,15 +132,15 @@ public class Robot extends IterativeRobot
    		//lifter go up
    		if(leftStick.getRawButton(LIFTERUP))
    		{
-   			if(state == STOPPED)
+   			if(lifterState == LifterState.STOPPED)
    			{
    				motorLifter.set(1);
-   				lifterState = UP;
+   				lifterState = LifterState.UP;
    			}
    			else
    			{
    				motorLifter.set(0);
-   				lifterState = STOPPED;
+   				lifterState = LifterState.STOPPED;
    			}
    			
    			/*
@@ -160,15 +160,15 @@ public class Robot extends IterativeRobot
    		//lifter go down
    		if(leftStick.getRawButton(LIFTERDOWN))
    		{
-   			if(state == STOPPED)
+   			if(lifterState == LifterState.STOPPED)
    			{
    				motorLifter.set(-1);
-   				lifterState = DOWN;
+   				lifterState = LifterState.DOWN;
    			}
    			else
    			{
    				motorLifter.set(0);
-   				lifterState = STOPPED;
+   				lifterState = LifterState.STOPPED;
    			}
    			
    			/*

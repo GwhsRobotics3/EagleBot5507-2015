@@ -16,9 +16,10 @@ import edu.wpi.first.wpilibj.Compressor;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot
+{
 	//Buttons
-	final int GRABBER = 1;
+	final int GRABBER =3;
 	final int LIFTERUP = 5;
 	final int LIFTERDOWN = 6;
 	final int TURNRIGHT = 3;
@@ -37,21 +38,24 @@ public class Robot extends IterativeRobot {
 	final long ELAPSE_TURN = 0; //need to change
 	
 	RobotDrive myRobot;
+	
 	Joystick leftStick;
 	Joystick rightStick;
+	
 	CANTalon motorLeft = new CANTalon(MOTOR_LEFT);
 	CANTalon motorRight = new CANTalon(MOTOR_RIGHT);
 	CANTalon motorLifter = new CANTalon(MOTOR_LIFTER);
+	
 	Compressor compressor = new Compressor();
 	
 	Timer timer = new Timer();
-	//StopWatch timer = new StopWatch();
 	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() {
+    public void robotInit()
+    {
     	myRobot = new RobotDrive(MOTOR_LEFT,MOTOR_RIGHT);
     	compressor.stop();
     	leftStick = new Joystick(LEFT_JOYSTICK);
@@ -61,19 +65,22 @@ public class Robot extends IterativeRobot {
     /**
      * This function is run once each time the robot enters autonomous mode
      */
-    public void autonomousInit() {
+    public void autonomousInit()
+    {
     }
 
     /**
      * This function is called periodically during autonomous
      */
-    public void autonomousPeriodic() {
+    public void autonomousPeriodic()
+    {
     }
     
     /**
      * This function is called once each time the robot enters tele-operated mode
      */
-    public void teleopInit(){
+    public void teleopInit()
+    {
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
@@ -133,25 +140,14 @@ public class Robot extends IterativeRobot {
    			timer.stop();
    			timer.reset();
    		}
-   		
-   		/*
-   		if(leftstick.getRawButton(2))
-   		
-   		{
-   			for(int i = 0; i < 50; i++)
-   			{
-   				myRobot.drive(outputMagnitude, curve);;
-   			}
-   		}
-   		*/
-   		
-   		}
+   	}
    		
     	
     /**
      * This function is called periodically during test mode
      */
-    public void testPeriodic() {
+    public void testPeriodic() 
+    {
     	LiveWindow.run();
     }  
 }

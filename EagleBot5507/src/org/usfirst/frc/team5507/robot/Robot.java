@@ -21,12 +21,14 @@ public class Robot extends IterativeRobot
 	//Buttons
 
 	final int GRABBER = 1;
-	final int LIFTERUP = 5;
-	final int LIFTERDOWN = 6;
+	final int LIFTERLEVELUP = 6;
+	final int LIFTERLEVELDOWN = 4;
 	final int TURNRIGHT = 3;
 	final int TURNLEFT = 4;
 	final int RESET = 7;
 	final int LIGHTS = 8;
+	final int LIFTERUP = 5;
+	final int LIFTERDOWN = 3;
 	
 	final int MOTOR_LEFT = 0;
 	final int MOTOR_RIGHT = 1;
@@ -86,7 +88,11 @@ public class Robot extends IterativeRobot
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-        
+    	
+    	boolean lifterUpState = false;
+    	boolean lifterDownState = false;
+    	
+        LifterState lifterState = STOPPED;
     }
     
     /**
@@ -95,7 +101,9 @@ public class Robot extends IterativeRobot
 	public void teleopPeriodic() 
 	{
 		myRobot.arcadeDrive(leftStick);
-     	if(leftStick.getRawButton(LIFTERUP))
+		
+		//lifter up 1 level
+     	if(leftStick.getRawButton(LIFTERLEVELUP))
         {
      		timer.start();
      		while(timer.get()<ELAPSE_LIFT)
@@ -107,8 +115,9 @@ public class Robot extends IterativeRobot
      		timer.reset(); 
    			
         }
-   		
-   		if(leftStick.getRawButton(LIFTERDOWN))
+     	
+   		//lifter down 1 level
+   		if(leftStick.getRawButton(LIFTERLEVELDOWN))
    		{
    			timer.start();
      		while(timer.get()<ELAPSE_LIFT)
@@ -120,6 +129,63 @@ public class Robot extends IterativeRobot
      		timer.reset();
    		}
    		
+   		//lifter go up
+   		if(leftStick.getRawButton(LIFTERUP))
+   		{
+   			if(state == STOPPED)
+   			{
+   				motorLifter.set(1);
+   				lifterState = UP;
+   			}
+   			else
+   			{
+   				motorLifter.set(0);
+   				lifterState = STOPPED;
+   			}
+   			
+   			/*
+   			if(!lifterUpState)
+   			{
+   				motorLifter.set(1);
+   				lifterUpState = true;
+   			}
+   			else
+   			{
+   				motorLifter.set(0);
+   				lifterUpState = false;
+   			}
+   			*/
+   		}
+   		
+   		//lifter go down
+   		if(leftStick.getRawButton(LIFTERDOWN))
+   		{
+   			if(state == STOPPED)
+   			{
+   				motorLifter.set(-1);
+   				lifterState = DOWN;
+   			}
+   			else
+   			{
+   				motorLifter.set(0);
+   				lifterState = STOPPED;
+   			}
+   			
+   			/*
+   			if(!lifterDownState)
+   			{
+   				motorLifter.set(1);
+   				lifterDownState = true;
+   			}
+   			else
+   			{
+   				motorLifter.set(0);
+   				lifterDownState = false;
+   			}
+   			*/
+   		}
+   		
+   		//robot turn left 45 degrees
    		if(leftStick.getRawButton(TURNLEFT))
    		{
    			timer.start();
@@ -131,6 +197,7 @@ public class Robot extends IterativeRobot
    			timer.reset();
    		}
    		
+   		//robot turn right 45 degress
    		if(leftStick.getRawButton(TURNRIGHT))
    		{
    			timer.start();

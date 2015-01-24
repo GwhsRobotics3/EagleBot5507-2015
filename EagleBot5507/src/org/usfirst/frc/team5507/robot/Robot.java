@@ -43,7 +43,9 @@ public class Robot extends IterativeRobot {
 	CANTalon motorRight = new CANTalon(MOTOR_RIGHT);
 	CANTalon motorLifter = new CANTalon(MOTOR_LIFTER);
 	Compressor compressor = new Compressor();
-	StopWatch timer = new StopWatch();
+	
+	Timer timer = new Timer();
+	//StopWatch timer = new StopWatch();
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -88,23 +90,23 @@ public class Robot extends IterativeRobot {
      	if(leftStick.getRawButton(LIFTERUP))
         {
      		timer.start();
-     		while(timer.getElapsedTime()<ELAPSE_LIFT)
+     		while(timer.get()<ELAPSE_LIFT)
      		{
      			myRobot.arcadeDrive(leftStick);
-   			motorLifter.set(1);
+     			motorLifter.set(1);
      		}
      		timer.stop();
-     		timer.reset();
+     		timer.reset(); 
    			
         }
    		
    		if(leftStick.getRawButton(LIFTERDOWN))
    		{
    			timer.start();
-     		while(timer.getElapsedTime()<ELAPSE_LIFT)
+     		while(timer.get()<ELAPSE_LIFT)
      		{
      			myRobot.arcadeDrive(leftStick);
-   			motorLifter.set(-1);
+     			motorLifter.set(-1);
      		}
      		timer.stop();
      		timer.reset();
@@ -113,7 +115,7 @@ public class Robot extends IterativeRobot {
    		if(leftStick.getRawButton(TURNLEFT))
    		{
    			timer.start();
-   			while(timer.getElapsedTime()<ELAPSE_TURN)
+   			while(timer.get()<ELAPSE_TURN)
    			{
    				myRobot.drive(0,-1);
    			}
@@ -124,7 +126,7 @@ public class Robot extends IterativeRobot {
    		if(leftStick.getRawButton(TURNRIGHT))
    		{
    			timer.start();
-   			while(timer.getElapsedTime()<ELAPSE_TURN)
+   			while(timer.get()<ELAPSE_TURN)
    			{
    				myRobot.drive(0,1);
    			}

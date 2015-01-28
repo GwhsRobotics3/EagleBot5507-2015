@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Compressor;
+//import edu.wpi.first.wpilibj.vision.USBCamera;
+//import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -50,6 +52,9 @@ public class Robot extends IterativeRobot
 	
 	Compressor compressor = new Compressor();
 	
+	//USBCamera camera = new USBCamera();
+	
+	
 	Timer timer = new Timer();
 	
 	boolean lifterUpState = false;
@@ -74,6 +79,7 @@ public class Robot extends IterativeRobot
      */
     public void autonomousInit()
     {
+    	
     }
 
     /**
@@ -92,6 +98,12 @@ public class Robot extends IterativeRobot
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+    	
+    	//compressor.setClosedLoopControl(true);
+    	
+    	motorLifter.set(1);
+    	//camera.openCamera();
+    	//camera.startCapture();
     }
     
     /**

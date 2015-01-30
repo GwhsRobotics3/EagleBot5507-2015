@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5507.robot;
 
+import org.omg.PortableInterceptor.ForwardRequest;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -7,8 +9,11 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Compressor;
-//import edu.wpi.first.wpilibj.vision.USBCamera;
-//import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.vision.USBCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,13 +51,17 @@ public class Robot extends IterativeRobot
 	Joystick leftStick;
 	Joystick rightStick;
 	
+	DoubleSolenoid grabberAir;
+	
 	CANTalon motorLeft = new CANTalon(MOTOR_LEFT);
 	CANTalon motorRight = new CANTalon(MOTOR_RIGHT);
 	CANTalon motorLifter = new CANTalon(MOTOR_LIFTER);
 	
 	Compressor compressor = new Compressor();
 	
-	//USBCamera camera = new USBCamera();
+	USBCamera camera = new USBCamera();
+	
+	DigitalInput limitSwitch;
 	
 	
 	Timer timer = new Timer();
@@ -72,13 +81,40 @@ public class Robot extends IterativeRobot
     	compressor.stop();
     	leftStick = new Joystick(LEFT_JOYSTICK);
     	rightStick = new Joystick(RIGHT_JOYSTICK);
+    	grabberAir = new DoubleSolenoid(0,1);
+    	limitSwitch = new DigitalInput(1);
+    	grabberAir.set(DoubleSolenoid.Value.kOff);
+    	
+    	
+
     }
+    
+    
+
     
     /**
      * This function is run once each time the robot enters autonomous mode
      */
     public void autonomousInit()
     {
+    	/*
+    	while(limitSwitch.get()!=false)
+    	{
+    		motorLifter.set(1);
+    	}
+    	//motorLifter.set(1);
+    	 
+    	 */
+    	compressor.start();
+    	/**
+    	grabberAir.set(DoubleSolenoid.Value.kOff);
+    	Timer.delay(5);
+    	grabberAir.set(DoubleSolenoid.Value.kForward);
+    	Timer.delay(5);
+    	grabberAir.set(DoubleSolenoid.Value.kOff);
+    	Timer.delay(5);
+    	grabberAir.set(DoubleSolenoid.Value.kReverse);
+    	*/
     	
     }
 
@@ -99,9 +135,6 @@ public class Robot extends IterativeRobot
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
     	myRobot.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
     	
-    	//compressor.setClosedLoopControl(true);
-    	
-    	motorLifter.set(1);
     	//camera.openCamera();
     	//camera.startCapture();
     }
@@ -112,6 +145,7 @@ public class Robot extends IterativeRobot
 	public void teleopPeriodic() 
 	{
 		myRobot.arcadeDrive(leftStick);
+		compressor.start();
 		
 		//lifter up 1 level
      	if(leftStick.getRawButton(LIFTERLEVELUP))
@@ -218,6 +252,14 @@ public class Robot extends IterativeRobot
    			}
    			timer.stop();
    			timer.reset();
+   		}
+   		if(leftStick.getRawButton(11))
+   		{
+   			grabberAir.set(DoubleSolenoid.Value.kReverse);
+   		}
+   		if(leftStick.getRawButton(12))
+   		{
+   			grabberAir.set(DoubleSolenoid.Value.kForward);
    		}
    	}
    		
